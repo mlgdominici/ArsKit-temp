@@ -1,0 +1,25 @@
+* installare yaml.lua (luarocks?)
+
+* installare PDFBox 0.7.3 (sì proprio la versione esatta...) con
+  pdfannotextractor --install --debug (come utente
+  normale). Attenzione perché viene installato in una poszione
+  dipendente dalla versione TeX Live in uso
+  ($HOME/.texliveXXXX/texmf-var/scripts/pax/).
+
+* c'è un problema con i margini asimmetrici nell'inclusione dei PDF,
+  se la "parità" delle pagine dell'articolo originale non corrisponde
+  con quella dell'articolo incluso (gli originali iniziano sempre su
+  una pagina dispari -- 1 --, quelli inclusi non necessariamente).
+
+* Rivisitare tutto il codice che si riferisce a hyperref. A questo
+  punto ha senso impostare per la versione a stampa il caricamento di
+  hyperref e i collegamenti in nero? Tanto il caricamento, da parte
+  della classe o nel template, può essere attivato/disattivato da un
+  comando condizionale (\ifATonline, per esempio).
+
+  CONTRO: è sempre bene di evitare di caricare codice non strettamente
+  necessario.
+
+  PRO: in fase di debug/rilettura è sempre comodo avere la possibilità
+  di navigare all'inerno del pdf, anche per la versione che dovrà
+  essere stampata

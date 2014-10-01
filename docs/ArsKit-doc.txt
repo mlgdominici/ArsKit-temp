@@ -1,0 +1,161 @@
+* Panoramica del funzionamento
+
+  La cartella di lavoro è costituita da un file master
+  (arstexnica.tex), una serie di sottocartelle dove andranno messi gli
+  articoli e il materiale supplementare (copertina, colophon, pagine
+  di riempimento) e un albero locale con i file reativi alla classe
+  arstexnica.
+
+  Per comporre un numero della rivista si lancia uno script lua,
+  specificando eventualmente delle opzioni. Lo script fa partire la
+  compilazione del master con le adeguate impostazioni (-shell-escape,
+  per esempio, viene attivato).
+
+  All'interno del master si trovano dei comandi \IncludeArticle, il
+  cui argomento è il percorso dell'articolo. Il comando lancia la
+  compilazione del singolo articolo tramite \write18 e poi include il
+  PDF risultante, se tutto è andato bene. La compilazione dei singoli
+  articoli è governata da latexmk per garantire (nei limiti del
+  possibile) che il PDF sia aggiornato al momento dell'inclusione.
+
+  Contemporaneamente vengono scritti i metadati relativi alla rivista
+  e ai singoli articoli sotto forma di tabella lua, in modo che
+  possano essere successivamente trattati da altri script o da altre
+  funzioni dello script principale.
+
+* Componenti
+  
+  Ho cercato di ridurre il più possibile le dipendenze esterne da TeX
+  Live. Per questo gli script funzionano con texlua e caricano solo
+  librerie già installate con il sistema TeX. Al momento le uniche due
+  dipendenze esterne sono il programma gnu barcode per il codice a
+  barre (forse sostibuile con il pacchetto pst-barcode) e la libreria
+  Java PDFBox, usata dal pacchetto pax, che serve a ripristinare i
+  collegamenti ipertestuali che altrimenti andrebbero persi.
+
+  - AT_new_issue.lua: lo script che inizializza una nuova cartella
+    pronta per contenere il nuovo numero. Al momento richiede che
+    vengano specificati i valori di due opzioni, ovvero l'anno e il
+    numero della rivista. Per agevolare l'automazione vorrei
+    introdurre la possibilità di leggere da e scrivere su un file di
+    configurazione da cui poter estrarre tali valori.
+
+    Oltre a costruire la struttura della cartella di lavoro e copiarvi
+    il contenuto del repository che contiene la classe e i template
+    per le pagine di copertina, colophon, ecc., lo script scrive un
+    file di configurazione con i dati dell'uscita (anno, mese, numero)
+    e la modalità default di compilazione (online); e genera il pdf
+    con il codice a barre delle due versioni (stampa e elettronica).
+
+  - AT_build.lua: lo script di compilazione. Si può specificare se si
+    vuole compilare la versione elettronica o quella a stampa. Se non
+    si specifica niente viene eseguita la modalità precedente, o, nel
+    caso si tratti della prima compilazione, la modalità elettronica.
+
+  - AT_build_biblio.lua: lo script che genera la bibliografia a
+    partire dalla tabella dei metadati.
+
+  - arstexnica.cls: la classe. Vi sono stati incorporati i vecchi file
+    arsacro.sty, secondadicop.sty, arscopertina.sty. Non ho
+    incorporato arstestata.sty.
+
+  - arstexnica.bst: lo stile bibliografico. Non l'ho toccato.
+
+  - arstexnica.tex: template per il master.
+
+  - template vari: prima.tex, seconda.tex, terza.tex, quarta.tex,
+    colophon.tex.
+
+* Osservazioni e questioni aperte
+
+** Organizazzione interna della classe
+   
+   Idealmente la classe dovrebbe finire su CTAN, però solo la parte
+   destinata agli autori, mentre manterrei separata la parte per la
+   produzione redazionale. In questo caso direi che abbiamo tre
+   alternative.
+
+   1. Sviluppare le varie parti in dtx separati e caricare su CTAN
+      solo quella di pertinenza degli autori. Lo svantaggio grosso è
+      che si rischia di duplicare del codice, con relativi problemi di
+      manutenzione.
+   2. Usare un dtx monolitico con le varie parti identificate da
+      diversi tag e un .ins che di default genera una classe
+      contenente solo la parte destinata agli autori. In questo caso
+      tutto il codice sarebbe su CTAN sotto forma di dtx, ma gli
+      autori userebbero un .cls più snello, privo di tutte le parti
+      che non servono.
+   3. Stessa organizzazione del punto precedente, ma la generazione
+      della classe per gli autori avverrebbe in locale e sul CTAN
+      verrebbero caricati solo .cls, .bst e documentazione. Tenderei a
+      scartare questa soluzione.
+
+** Comandi della classe per la compilazione dei singoli articoli
+
+   Attualmente i comandi per la compilazione dei singoli articoli non
+   sono configurabili: usano pdflatex sempre. Vorrei aggiungere la
+   possibilità di scegliere il compilatore e le opzioni da
+   passargli. Soprattutto la possibilità di forzare una ricompilazione
+   anche quando latexmk pensa che sia tutto aggiornato.
+
+** Script Lua
+
+   Per il momento i controlli sugli errori in generale sono davvero
+   rudimentali. Non conosco granché Lua (e anche la programmazione in
+   generale), per cui spero di ricevere qualche suggerimento da voi.
+
+   Come avete visto, per il momento lo script che crea le voci
+   bibliografiche a partire dai metadati è, appunto, uno script
+   separato. Qual è secondo voi l'approccio migliore? Tenere separate
+   le varie utilità, oppure concentrarle tutte in un unico script
+   sotto forma di funzioni? In quest'ultimo caso bisogna anche pensare
+   a come organizzare le opzioni.
+
+** Metadati
+
+   Nei metadati finisce ovviamente anche del codice LaTeX. Ciò
+   presenta lati positivi e negativi. Da una parte bisogna pensare a
+   ripulire il testo, a seconda dell'uso che se ne fa. Dall'altra
+   abbiamo comunque del markup che ci può guidare nella traduzione
+   verso altri formati (HTML, per esempio, da usare sul sito).
+
+** Test
+
+   Per ora il nuovo sistema è stato testato solo su Linux usando come
+   banco di prova il numero 17. Nei prossimi giorni vorrei testare
+   anche il numero 18, anche per fare una comparazione dei tempi di
+   compilazione. So già che quelli del nuovo sistema saranno molto più
+   contenuti, ma sono curioso di vedere quantificata la differenza.
+
+   Servirebbe che qualcuno testasse su Mac e Windows.
+
+** Norme?
+
+   Penso che sia il caso di cominciare a pensare di redigere delle
+   norme, anche se snelle, a cui autori e redattori dovrebbero far
+   riferimento. Non vorrei imporle come obbligo, ma almeno proporle
+   come linee guida. Nell'ultimo numero, per esempio, c'era una
+   discreta variabilità in merito all'uso del punto a fine
+   didascalia. E c'erano autori che si impuntavano a caricare
+   indentfirst... Ricordiamoci che, poiché ogni articolo viene
+   composto a sé, l'uniformità stilistica è ancora più a rischio che
+   nella situazione attuale, quando un pacchetto caricato da un
+   singolo autore agisce su tutto il numero (compromettendo magari
+   l'identità visiva della rivista, ma non l'uniformità interna).
+
+   Poi servirebbe, specie per chi fa l'ultima revisione, una checklist
+   particlareggiata delle cose da controllare. Se non fosse stato per
+   Gianluca mi sarei fatto sfuggire un paio di errori marchiani nel
+   colophon e in terza di copertina...
+
+** Revisione stilistica integrale?
+
+   Dovremmo finalmente decidere se mantenere le impostazioni attuali
+   con qualche ritocco che è necessario, secondo me, o rivedere
+   integralmente lo stile della rivista a partire dal formato. Ma di
+   questo sarà meglio parlare a voce al meeting con chi sarà presente.
+ 
+
+# Local Variables:
+# mode: org
+# End:

@@ -1,0 +1,38 @@
+%%
+%%  This is file `arstestata.sty',
+%%  Stato: Bozza
+%%  Copyright 2006 Gruppo Utilizzatori Italiani di TeX
+%%
+%%  This work may be distributed and/or modified under the
+%%  conditions of the LaTeX Project Public License, either
+%%  version 1.3a of this license or (at your option) any
+%%  later version.
+%%  The latest version of the license is in
+%%     http://www.latex-project.org/lppl.txt
+%%
+%%  Author: Massimo Caschili
+%%          (massimo.caschili@tiscali.it)
+%%          Massimiliano Dominici
+%%          (mlgdominici@interfree.it)
+%%
+%   $Id: arstestata.sty 1.3 2006/01/29 11:33:07 mlgdominici Exp mlgdominici $
+%%  This work has the LPPL maintenance status "author-maintained".
+%%
+%%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{arstestata}[2006/01/20 v0.1.0 Testata di ArsTeXnica]
+\RequirePackage{guit}
+
+\DeclareRobustCommand*{\Arstestata}{%
+    \vbox{\raggedleft\scalebox{8}{\Ars}\par
+    \vspace{2pt}
+    \ArsSubtitle}
+}%
+\DeclareRobustCommand*{\ArsSubtitle}{%
+    {\arssubtitlefont Rivista italiana di \TeX{} e \LaTeX}
+}
+\newcommand*\arssubtitlefont{\huge}
+
+\endinput
+%%
+%% End of file `arstestata.sty'.

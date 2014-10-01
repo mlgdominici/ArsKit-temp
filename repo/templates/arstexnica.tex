@@ -1,0 +1,65 @@
+\documentclass[journal,final]{arstexnica}
+
+% system packages
+\usepackage[english,italian]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{pdfpages}
+\usepackage{pax}
+\usepackage{hyperref}
+
+% system definitions
+\Urlmuskip = 0mu plus 1mu %% cfr `url.sty'
+
+\makeatletter
+\hypersetup{% Attenzione: hyperref è sempre caricato! Dal pacchetto `guit', chiamato da `arstestata', chiamato da `arstexnica'. Non è più vero almeno dal 2012 (v0.9.1 di guit.sty).
+  pdfauthor   = {ArsTeXnica},
+  pdftitle    = {ArsTeXnica, Numero \AT@number, \AT@year}
+  pdfkeywords = {TeX, LaTeX, ConTeXt, XeLaTeX, tipografia digitale}
+}
+\makeatother
+
+\begin{document}
+
+\pdfstringdefDisableCommands{% per i bookmarks, nella versione elettronica.
+  \let\thanks\@gobble
+  \renewcommand{\thanksmark}[1]{}
+  \renewcommand{\thanksgap}[1]{}
+  \def\thetitle{\@title}
+  \def\newline{\ }
+  \def\\{\ }
+}
+
+\selectlanguage{italian}
+
+% \setcounter{page}{-1}
+
+%Struttura fissa-----------
+\pagestyle{empty}
+\IncludeSuppl[prima]{copertina/prima}
+\IncludeSuppl[seconda]{copertina/seconda}
+
+\pagestyle{journal}
+\ATtableofcontents
+%--------------------------
+
+% Qui i vari articoli
+% Per ora li metteremo a mano, presto in automatico
+
+%\IncludeArticle{<directory>/<file_articolo>}
+
+%--------------------------
+% Qui l'eventuale riempitivo
+% \includepdf{eventi.pdf}
+%--------------------------
+
+% Struttura fissa ---------
+\ATbackmatter
+\ATcleartoverso
+\IncludeSuppl{copertina/colophon}
+\IncludeSuppl{copertina/terza}
+\IncludeSuppl[quarta]{copertina/quarta}
+%--------------------------
+
+\end{document}

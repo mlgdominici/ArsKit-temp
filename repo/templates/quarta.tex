@@ -1,0 +1,43 @@
+\documentclass{arstexnica}
+\usepackage[italian]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[bookmarks=false]{hyperref}
+\usepackage{xspace}
+
+% \DeclareRobustCommand\XeTeX{%
+%   \leavevmode\hbox{X%
+%   \lower.5ex \hbox{\kern-.125em\reflectbox{E}}%
+%   \kern-.1667em \TeX}}
+
+\begin{document}
+
+\makeatletter
+% \input{arstexnica.cfg}
+\renewcommand\arssubtitlefont{\huge}
+%\newcommand\ATindexlabel[1]{%
+%  \makebox[2.5em][r]{#1}}
+\makeatother
+
+\onecolumn
+\thispagestyle{empty}
+\settowidth{\arswidth}{\scalebox{7}{\Ars}}
+
+\begin{center}
+\parbox{\arswidth}{%
+  \raggedleft
+  \scalebox{7}{\Ars}\par
+  \vspace{10pt}
+  \ArsSubtitle}\par
+  \vskip\baselineskip
+  \IssueLine
+\end{center}
+
+\vskip4\baselineskip
+
+\ATarticlelist
+\vfill\hfill\includegraphics{\issnimg}
+
+
+\end{document}
