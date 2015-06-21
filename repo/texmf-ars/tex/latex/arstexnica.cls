@@ -775,10 +775,10 @@
 \newcounter{AT@end@page}
 \def\AT@subdirectory{}
 \def\AT@divide@path#1/#2|{\def\AT@article@path{#1}\def\AT@article@name{#2}}
-\newcommand\@titledata[3]{
-  \markboth{#1}{#2}
+\newcommand\@titledata[4]{
+  \markboth{#1}{#3}
   \gdef\AT@toc@header{#1\newline #2}
-  \immediate\write\AT@lst{\string\@titledata{#1}{\unexpanded{#2}}{\thepage}}
+  \immediate\write\AT@lst{\string\@titledata{#1}{\unexpanded{#2}}{\unexpanded{#3}}{\thepage}}
 }
 \def\ATtitlemark#1{}
 \newcounter{ATtitle}
@@ -1087,12 +1087,12 @@ del \guit}
   \AT@cfgfound}{\AT@cfgnotfound}
 \newcommand\ATindexlabel[1]{%
   \makebox[2.5em][r]{#1}}
-\newcommand\@titledata[3]{%
+\newcommand\@titledata[4]{%
   \newdimen\tmp%
   \advance\tmp by \textwidth%
-  \advance\tmp by -4.5em%
+  \advance\tmp by -4.5em%  
 % The \phantom{q}s are to correct the depth of those lines with no descenders
-  \item[#3] \begin{minipage}[t]{\tmp}#2\phantom{q}\par%
+  \item[#4] \begin{minipage}[t]{\tmp}\let\,\space\let\\\relax#2\phantom{q}\par%
   \textit{#1}\phantom{q}%
   \end{minipage}
 }
