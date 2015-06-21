@@ -525,6 +525,7 @@
     citecolor   = ATLinkColor,
     linkcolor   = ATLinkColor, 
     urlcolor    = ATLinkColor, 
+    bookmarksdepth = 3,
   }
 }
 %
