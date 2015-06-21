@@ -33,7 +33,7 @@
   Java PDFBox, usata dal pacchetto pax, che serve a ripristinare i
   collegamenti ipertestuali che altrimenti andrebbero persi.
 
-  - AT_new_issue.lua: lo script che inizializza una nuova cartella
+  - AT​_new​_issue.lua: lo script che inizializza una nuova cartella
     pronta per contenere il nuovo numero. Al momento richiede che
     vengano specificati i valori di due opzioni, ovvero l'anno e il
     numero della rivista. Per agevolare l'automazione vorrei
@@ -47,12 +47,17 @@
     e la modalità default di compilazione (online); e genera il pdf
     con il codice a barre delle due versioni (stampa e elettronica).
 
-  - AT_build.lua: lo script di compilazione. Si può specificare se si
+  - AT​_build.lua: lo script di compilazione. Si può specificare se si
     vuole compilare la versione elettronica o quella a stampa. Se non
     si specifica niente viene eseguita la modalità precedente, o, nel
     caso si tratti della prima compilazione, la modalità elettronica.
 
-  - AT_build_biblio.lua: lo script che genera la bibliografia a
+  - AT​_build​_biblio.lua: lo script che genera la bibliografia a
+    partire dalla tabella dei metadati.
+
+  - AT​_output​_pdf.lua: lo script che genera i PDF dei singoli articoli.
+
+  - AT​_output​_abstracts.lua: lo script che genera gli abstract a
     partire dalla tabella dei metadati.
 
   - arstexnica.cls: la classe. Vi sono stati incorporati i vecchi file
@@ -106,10 +111,10 @@
 
    Come avete visto, per il momento lo script che crea le voci
    bibliografiche a partire dai metadati è, appunto, uno script
-   separato. Qual è secondo voi l'approccio migliore? Tenere separate
-   le varie utilità, oppure concentrarle tutte in un unico script
-   sotto forma di funzioni? In quest'ultimo caso bisogna anche pensare
-   a come organizzare le opzioni.
+   separato (idem per PDF e abstract). Qual è secondo voi l'approccio
+   migliore? Tenere separate le varie utilità, oppure concentrarle
+   tutte in un unico script sotto forma di funzioni? In quest'ultimo
+   caso bisogna anche pensare a come organizzare le opzioni.
 
 ** Metadati
 
