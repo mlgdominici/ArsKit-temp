@@ -579,7 +579,7 @@
   \gdef\AT@close@group[}]
 \endgroup
 \def\AT@metadata@file{arstexnica.data}
-\newwrite\AT@matedata
+\newwrite\AT@metadata
 % \long\def\AT@immediate@protected@write#1#2#3{%
 %   \begingroup
 %   #2%
@@ -594,9 +594,9 @@
 %   \IfFileExists{#1}%
 %     {\CatchFileDef{\filecontent}{#1}{\catcode123=12\catcode125=12\endlinechar=`^^J\catcode\endlinechar=12\relax}}% keep existing end-of-lines
 %     {\let\filecontent\empty}%
-%   \immediate\openout\AT@matedata=#1\relax 
-%   \AT@immediate@protected@write\AT@matedata{}{\filecontent #2}
-%   \immediate\closeout\AT@matedata  
+%   \immediate\openout\AT@metadata=#1\relax 
+%   \AT@immediate@protected@write\AT@metadata{}{\filecontent #2}
+%   \immediate\closeout\AT@metadata  
 %   \endgroup
 % }
 %
@@ -624,9 +624,9 @@
 \immediate\write18{rm \AT@metadata@file}
 \def\AT@authors@hook#1{%
   \ifnum\c@author=\@ne
-    \immediate\write\AT@matedata{["authors"]=\AT@open@group}
+    \immediate\write\AT@metadata{["authors"]=\AT@open@group}
   \fi
-  \immediate\write\AT@matedata{[[\unexpanded{#1}]],}
+  \immediate\write\AT@metadata{[[\unexpanded{#1}]],}
 }
 %%% Voci dei sommari iniziale e finale.
 % Nel sommario voglio solo i titoli.
@@ -645,8 +645,8 @@
     \string\@titledata{\theauthorlist}{\@title}{\thetitle}{\thepage}}
  \closeout\AT@lst
   %%% mmm, magari non qui...
- \immediate\write\AT@matedata{\AT@close@group,}
- \immediate\write\AT@matedata{["title"]=[[\expandonce\@title]],}
+ \immediate\write\AT@metadata{\AT@close@group,}
+ \immediate\write\AT@metadata{["title"]=[[\expandonce\@title]],}
 }
 \let\AT@old@abstract\abstract
 \let\AT@old@endabstract\endabstract
@@ -656,14 +656,14 @@
 \NewEnviron{abstract}{%
   \AT@old@abstract\BODY\AT@old@endabstract%
   \ifAT@first@abstract
-    \immediate\write\AT@matedata{["abstracts"]=\AT@open@group}
-    \global\def\AT@close@abstracts{\immediate\write\AT@matedata{\AT@close@group,}}
+    \immediate\write\AT@metadata{["abstracts"]=\AT@open@group}
+    \global\def\AT@close@abstracts{\immediate\write\AT@metadata{\AT@close@group,}}
     \global\AT@first@abstractfalse
   \fi%  
-  \immediate\write\AT@matedata{["\languagename"]=[[\expandonce\BODY]],}%
+  \immediate\write\AT@metadata{["\languagename"]=[[\expandonce\BODY]],}%
 }
-\AtEndOfClass{\immediate\openout\AT@matedata=\AT@metadata@file}
-\AtEndDocument{\immediate\closeout\AT@matedata}
+\AtEndOfClass{\immediate\openout\AT@metadata=\AT@metadata@file}
+\AtEndDocument{\immediate\closeout\AT@metadata}
 \fi
 %
 %%% journal + prima + quarta
@@ -803,8 +803,8 @@
 }
 \newcommand\IncludeArticle[1]{%
   \def\AT@build@hook{
-    \immediate\write\AT@matedata{["\AT@article@name"]=\AT@open@group}
-    \immediate\write\AT@matedata{["startpage"]=\thepage,}
+    \immediate\write\AT@metadata{["\AT@article@name"]=\AT@open@group}
+    \immediate\write\AT@metadata{["startpage"]=\thepage,}
   }
   \def\AT@subdirectory{articoli}
   \AT@build@pdf[injournal]{#1}
@@ -827,35 +827,35 @@
   \IfFileExists{\AT@subdirectory/\AT@article@path/\AT@metadata@file}%
     {\CatchFileDef{\tmpfilecontent}{\AT@subdirectory/\AT@article@path/\AT@metadata@file}{\catcode123=12\catcode125=12\endlinechar=`^^J\catcode\endlinechar=12\relax}}% keep existing end-of-lines
     {\let\filecontent\empty}%
-  \immediate\write\AT@matedata{\expandonce\tmpfilecontent}
-  \immediate\write\AT@matedata{["endpage"]=\theAT@end@page,}
-  \immediate\write\AT@matedata{["path"]="\AT@subdirectory/\AT@article@path/",}
-  \immediate\write\AT@matedata{\AT@close@group,}
+  \immediate\write\AT@metadata{\expandonce\tmpfilecontent}
+  \immediate\write\AT@metadata{["endpage"]=\theAT@end@page,}
+  \immediate\write\AT@metadata{["path"]="\AT@subdirectory/\AT@article@path/",}
+  \immediate\write\AT@metadata{\AT@close@group,}
 }
 \InputIfFileExists{\jobname.cfg}{%
   \AT@cfgfound}{\AT@cfgnotfound}
 \AtBeginDocument{%
   \immediate\write18{rm arstexnica.data}
-  \immediate\openout\AT@matedata=\AT@metadata@file
-  \immediate\write\AT@matedata{do}
-  \immediate\write\AT@matedata{metadata = \AT@open@group}
-  \immediate\write\AT@matedata{articles = \AT@open@group}
+  \immediate\openout\AT@metadata=\AT@metadata@file
+  \immediate\write\AT@metadata{do}
+  \immediate\write\AT@metadata{metadata = \AT@open@group}
+  \immediate\write\AT@metadata{articles = \AT@open@group}
 }
 \AtEndDocument{
   \setcounter{AT@end@page}{\value{page}}
   \addtocounter{AT@end@page}{-1}
-  \immediate\write\AT@matedata{\AT@close@group,}
-  \immediate\write\AT@matedata{["lastpage"] = \theAT@end@page,}
-  \immediate\write\AT@matedata{["month"] = "\AT@month",}
-  \immediate\write\AT@matedata{["year"] = "\AT@year",}
-  \immediate\write\AT@matedata{["number"] = "\AT@number",}
-  \immediate\write\AT@matedata{["issn-print"] = "1828-2350",}
-  \immediate\write\AT@matedata{["issn-online"] = "1828-2369",}
-  \immediate\write\AT@matedata{["mode"] = "\AT@mode",}
-  \immediate\write\AT@matedata{\AT@close@group}
-  \immediate\write\AT@matedata{return metadata}
-  \immediate\write\AT@matedata{end}
-  \immediate\closeout\AT@matedata
+  \immediate\write\AT@metadata{\AT@close@group,}
+  \immediate\write\AT@metadata{["lastpage"] = \theAT@end@page,}
+  \immediate\write\AT@metadata{["month"] = "\AT@month",}
+  \immediate\write\AT@metadata{["year"] = "\AT@year",}
+  \immediate\write\AT@metadata{["number"] = "\AT@number",}
+  \immediate\write\AT@metadata{["issn-print"] = "1828-2350",}
+  \immediate\write\AT@metadata{["issn-online"] = "1828-2369",}
+  \immediate\write\AT@metadata{["mode"] = "\AT@mode",}
+  \immediate\write\AT@metadata{\AT@close@group}
+  \immediate\write\AT@metadata{return metadata}
+  \immediate\write\AT@metadata{end}
+  \immediate\closeout\AT@metadata
 }
 \fi
 %
