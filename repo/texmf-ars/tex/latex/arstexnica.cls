@@ -626,7 +626,7 @@
   \ifnum\c@author=\@ne
     \immediate\write\AT@matedata{["authors"]=\AT@open@group}
   \fi
-  \immediate\write\AT@matedata{[[#1]],}
+  \immediate\write\AT@matedata{[[\unexpanded{#1}]],}
 }
 %%% Voci dei sommari iniziale e finale.
 % Nel sommario voglio solo i titoli.
@@ -642,7 +642,7 @@
     {\let\thanks\@gobble\addcontentsline{toc}{title}{{\@title}\newline \emph{\theauthorlist}}}
   \fi
   \protected@write\AT@lst{\let\thanks\@gobble \let\label\@gobble \let\index\@gobble \let\glossary\@gobble}{%
-    \string\@titledata{\theauthorlist}{\@title}{\thepage}}
+    \string\@titledata{\theauthorlist}{\@title}{\thetitle}{\thepage}}
  \closeout\AT@lst
   %%% mmm, magari non qui...
  \immediate\write\AT@matedata{\AT@close@group,}
@@ -768,7 +768,7 @@
   }  
 }
 \renewcommand\numberline[1]{}
-\newcommand*\l@ATtitle{\@dottedtocline{0}{0pt}{0pt}}
+\newcommand*\l@ATtitle{\let\,\space\let\\\relax\@dottedtocline{0}{0pt}{0pt}}
 %
 % Composizione e inclusione degli articoli
 %
