@@ -1008,11 +1008,11 @@ del \guit}
   \end{list}\par\vskip6pt
 }
 \DeclareRobustCommand*{\guitind}{%
-  \emph{\guittext}:\\
-  c/o Ufficio Statistica\\
-  Scuola Superiore Sant'Anna\\
-  Piazza Martiri della Libert\`a 33\\
-  56127 Pisa, Italia.\\
+  \emph{\GuITtext}\\
+  c/o Universit\`a degli Studi di Napoli Federico II\\
+  Dipartimento di Ingegneria Industriale\\
+  Via Claudio 21\\
+  80125 Napoli -- Italia\\
   \guitweb\\
   \guitmail 
 }
@@ -1029,7 +1029,7 @@ del \guit}
   \arsweb\\
   \arsmail } %
 \DeclareRobustCommand*{\contributi}{%
-  \textbf{\large Associarsi a \guit}\par\medskip Fornire il tuo
+  \textbf{\large Associarsi a \guit}\par\medskip\noindent Fornire il tuo
   contributo a quest'iniziativa come membro, e non solo come
   semplice utente, \`e un presupposto fondamentale per aiutare la
   diffusione di \TeX\ e \LaTeX\ anche nel nostro paese.  L'adesione
@@ -1046,12 +1046,11 @@ del \guit}
     \begin{list}{}{\itemsep\z@}
     \item
     Stampata in Italia\\
-    Pisa: #1\ \AT@month\ \AT@year
+    Napoli: #1\ \AT@month\ \AT@year
     \end{list}
 }
 \DeclareRobustCommand*{\notacopy}{%
-  \textbf{Nota sul Copyright}\par\medskip
-
+  \textbf{Nota sul Copyright}\par\medskip\noindent 
   Il presente documento e il suo contenuto \`e distribuito con licenza
   \ccLogo{} Creative Commons 2.0 di tipo ``Non commerciale, non opere
   derivate''. \`E possibile, riprodurre, distribuire, comunicare al
