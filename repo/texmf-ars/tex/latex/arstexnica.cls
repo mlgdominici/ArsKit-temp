@@ -341,15 +341,15 @@
   \@afterheading}
 
 \renewcommand{\section}{\@startsection{section}{1}{\z@}%
-  {-1\baselineskip \@plus -.2ex \@minus -.1ex}{.5\baselineskip \@plus .2ex}{\normalfont\large\bfseries}}
+  {-1\baselineskip \@plus -.2ex \@minus -.1ex}{.5\baselineskip \@plus .2ex}{\raggedright\normalfont\large\bfseries}}
 \renewcommand{\subsection}{\@startsection{subsection}{2}{\z@}%
-  {-0.5\baselineskip \@plus -.2ex \@minus -.1ex}{1ex \@plus .2ex}{\normalfont\normalsize\bfseries}}
+  {-0.5\baselineskip \@plus -.2ex \@minus -.1ex}{1ex \@plus .2ex}{\raggedright\normalfont\normalsize\bfseries}}
 \renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{\z@}%
-  {-0.5\baselineskip \@plus -.2ex \@minus -.1ex}{1ex \@plus .2ex}{\normalfont\normalsize\itshape}}
+  {-0.5\baselineskip \@plus -.2ex \@minus -.1ex}{1ex \@plus .2ex}{\raggedright\normalfont\normalsize\itshape}}
 \renewcommand{\paragraph}{\@startsection{paragraph}{4}{\z@}%
-  {-0.5\baselineskip \@plus -.2ex \@minus -.1ex}{1ex \@plus .2ex}{\normalfont\normalsize\itshape}}
+  {-0.5\baselineskip \@plus -.2ex \@minus -.1ex}{1ex \@plus .2ex}{\raggedright\normalfont\normalsize\itshape}}
 \renewcommand{\subparagraph}{\@startsection{subparagraph}{5}{\z@}%
-  {-0.5\baselineskip \@plus -.2ex \@minus -.1ex}{1ex \@plus .2ex}{\normalfont\normalsize\itshape}}
+  {-0.5\baselineskip \@plus -.2ex \@minus -.1ex}{1ex \@plus .2ex}{\raggedright\normalfont\normalsize\itshape}}
 
 \renewcommand\thesection{\arabic{section}}
 %
